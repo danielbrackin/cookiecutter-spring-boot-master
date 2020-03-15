@@ -1,0 +1,14 @@
+{
+	"project_name": "Simple Spring Boot App",
+	"description": "Description for Spring Boot app",
+	"app_name": "simpleapp",
+	"maintainer": "Daniel Brackin",
+	"app_name_cap": "SimpleApp",
+	"app_name_cam": "simpleApp",
+	"app_version": "0.0.1",
+	"port": "8080",
+	"db_username": "admin",
+	"db_password": "password123",
+	"docker_root": "docker.brackinapps.com",
+	"host_name": "simpleapp.com"
+}

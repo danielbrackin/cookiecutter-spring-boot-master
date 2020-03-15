@@ -1,0 +1,14 @@
+body {
+    /*font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 14px;*/
+}
+
+.footer {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+}

@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.app_name}}
+  namespace: {{cookiecutter.app_name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{cookiecutter.app_name}}
+  template:
+    metadata:
+      name: {{cookiecutter.app_name}}
+      labels:
+        app: {{cookiecutter.app_name}}
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+      - name: {{cookiecutter.app_name}}
+        ports:
+          - containerPort: 8080
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_user
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_password
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: hostname-config
+                key: postgres_host
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_db
+          - name: POSTGRES_DBNAME
+            value: {{cookiecutter.app_name}}-db
+        image: {{cookiecutter.docker_root}}/{{cookiecutter.app_name}}:{{cookiecutter.app_version}}
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{cookiecutter.app_name}}
+  namespace: {{cookiecutter.app_name}}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: {{cookiecutter.port}}
+  selector:
+    app: {{cookiecutter.app_name}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{cookiecutter.app_name}}-ingress
+  namespace: {{cookiecutter.app_name}}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - {{cookiecutter.app_name}}.com
+      secretName: {{cookiecutter.app_name}}-tls
+  rules:
+    - host: {{cookiecutter.app_name}}.com
+      http:
+        paths:
+          - backend:
+              serviceName: {{cookiecutter.app_name}}
+              servicePort: 80

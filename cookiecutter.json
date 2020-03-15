@@ -1,0 +1,14 @@
+{
+	"project_name": "Test App",
+	"description": "Spring application for TestApp",
+	"app_name": "testapp",
+	"maintainer": "Daniel Brackin",
+	"app_name_cap": "TestApp",
+	"app_name_cam": "testApp",
+	"app_version": "0.0.1",
+	"port": "8080",
+	"db_username": "danielbrackin",
+	"db_password": "",
+	"docker_root": "docker.brackinapps.com",
+	"host_name": "testapp.com"
+}
