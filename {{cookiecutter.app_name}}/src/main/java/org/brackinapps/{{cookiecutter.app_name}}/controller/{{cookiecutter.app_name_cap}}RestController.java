@@ -1,7 +1,6 @@
 package org.brackinapps.{{cookiecutter.app_name}}.controller;
 
-import org.brackinapps.testapp.service.TestAppService;
-
+import org.brackinapps.{{cookiecutter.app_name}}.service.{{cookiecutter.app_name_cap}}Service;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
